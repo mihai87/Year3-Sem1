@@ -1,8 +1,15 @@
 TEMA 2 BAZA DE DATE PENTRU EVIDENŢA PACIENŢILOR, INCASĂRILOR ŞI ANGAJAŢILOR LA UN CABINET MEDICAL
 
-Se doreşte realizarea unei aplicaţii pentru evidenţa pacienţilor, consultaţiilor, încasărilor şi plăţilor la un cabinet stomatologic particular. La cabinet lucrează mai mulţi medici cărora li s-au întocmit contracte în care 
-sunt specificate toate datele personale necesare (preluate din actele de identitate), salariile de încadrare  şi data angajării. Pentru fiecare pacient se întocmeşte o fişă în care se consemnează numărul fişei, data întocmirii, 
-numele, data naşterii, adresa şi telefonul pacientului. Pentru a se prezenta la o consultaţie un pacient trebuie să-şi facă o programare specificând data, ora şi medicul solicitat. În momentul prezentării la consultaţie se 
+Se doreşte realizarea unei aplicaţii pentru evidenţa pacienţilor, consultaţiilor, încasărilor şi plăţilor la un cabinet stomatologic particular. 
+
+La cabinet lucrează mai mulţi medici cărora li s-au întocmit contracte în care sunt specificate toate datele personale necesare (preluate din actele de identitate), salariile de încadrare  şi data angajării. OK 
+
+
+
+Pentru fiecare pacient se întocmeşte o fişă în care se consemnează numărul fişei, data întocmirii, numele, data naşterii, adresa şi telefonul pacientului. Pentru a se prezenta la o consultaţie un pacient trebuie să-şi facă o programare specificând data, ora şi medicul solicitat. 
+
+
+În momentul prezentării la consultaţie se 
 întocmeşte o foaie de consultaţie în care se completează data consultaţiei şi toate intervenţiile pe care medicul le-a efectuat adăugând eventuale observaţii. Firma dispune de un catalog cu toate intervenţiile ce se pot realiza în 
 cabinet (de ex: extracţie, plombă, fixare aparat dentar, etc.) specificându-se  pentru fiecare costul materialelor şi tariful pentru prestaţia medicului. La o consultaţie un medic poate realiza mai multe intervenţii ce se vor 
 consemna pe aceeaşi fişă, calculându-se costul total. În momentul în care plătesc contravaloarea consultaţiilor pacienţilor li se eliberează chitanţe pe care figurează suma pe care au achitat-o. Există situaţii în care pacienţii nu 
