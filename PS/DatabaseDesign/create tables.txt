@@ -1,7 +1,129 @@
+CREATE TABLE medici (				
+cnp_medic INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
+nume_medic VARCHAR(20),
+prenume_medic VARCHAR(25),
+zin_medic CHAR(2),
+lunan_medic CHAR(2),
+ann_medic CHAR(4)
+) DONE
+					
+
+
+
+
+CREATE TABLE contracte_medici (						
+id_contract INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
+cnp_medic INT(13) UNSIGNED,
+telefon_medic INT(10) UNSIGNED,
+email_medic VARCHAR(35),
+ziua_angajarii CHAR(2),
+luna_angajarii CHAR(2),
+anul_angajarii CHAR(4),
+salariu_angajare FLOAT(5,2),
+FOREIGN KEY (cnp_medic)
+REFERENCES medici(cnp_medic)
+ON DELETE CASCADE
+) ENGINE=INNODB;   DONE
+
+
+CREATE TABLE adrese_medici (
+cnp_medic INT(13) UNSIGNED,							
+serieci_medic CHAR(2),
+nrci_medic char(6),
+strada_medic VARCHAR(35),
+nrstr_medic VARCHAR(5),
+bloc_medic VARCHAR(5),
+scara medic VARCHAR(3),
+ap_medic VARCHAR(3),
+oras_medic VARCHAR(30),
+FOREIGN KEY (cnp_medic)
+REFERENCES medici(cnp_medic)
+ON DELETE CASCADE
+) ENGINE=INNODB;   DONE
+
+
+
+CREATE TABLE plati_medici (			
+id_plata INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
+cnp_medic INT(13) UNSIGNED,
+bonus FLOAT(5,2),
+valoare_plata FLOAT(5,2),
+data_plata DATE,
+FOREIGN KEY (cnp_medic)
+REFERENCES medici(cnp_medic)
+ON DELETE CASCADE
+) ENGINE=INNODB; DONE
+
+
+CREATE TABLE foi_consultatie (					
+id_consultatie INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
+numar_fisa INT(11) UNSIGNED,
+cnp_medic INT(13) UNSIGNED,
+tip_interventie VARCHAR(35) NOT NULL,
+observatii TEXT,
+data_intocmire DATE,
+FOREIGN KEY (cnp_medic)
+REFERENCES medici(cnp_medic)
+ON DELETE CASCADE,
+FOREIGN KEY (tip_interventie)
+REFERENCES catalog_interventii(tip_interventie)
+ON DELETE CASCADE
+) ENGINE=INNODB; DONE
+
+
+CREATE TABLE programari_consultatii (							
+id_programare INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
+zi_programare CHAR(2),
+luna_programare CHAR(2),
+an_programare CHAR(4),
+ora_programare CHAR(2),
+minut_programare CHAR(2),
+cnp_medic INT(13) UNSIGNED,
+numar_fisa INT(11) UNSIGNED,
+FOREIGN KEY (cnp_medic)
+REFERENCES medici(cnp_medic)
+ON DELETE CASCADE,
+FOREIGN KEY (numar_fisa)
+REFERENCES fise_pacienti(numar_fisa)
+ON DELETE CASCADE
+) ENGINE=INNODB;
+							
+
+
 CREATE TABLE incasari (
 	id_incasare INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL, 
-    valoare_incasare FLOAT(5,2),
-    id_consultatie INT(11) UNSIGNED FOREIGN KEY, 
-    data_incasare DATETIME
+	id_consultatie INT(11) UNSIGNED NOT NULL,
+    	valoare_incasare FLOAT(5,2),
+    	FOREIGN KEY (id_consultatie) 
+	REFERENCES foi_consultatie(id_consultatie) ON DELETE CASCADE, 
+    	data_incasare DATE
+    ) ENGINE=INNODB; DONE
+
+CREATE TABLE catalog_interventii (
+	tip_interventie VARCHAR(35) PRIMARY KEY NOT NULL,	
+	cost_materiale FLOAT(5,2),
+	tarif_interventie FLOAT(5,2)
     )
+		
+
+
+
+
+CREATE TABLE fise_pacienti (													
+numar_fisa INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,	
+nume_pacient VARCHAR(20),
+prenume_pacient VARCHAR(25),
+ziua_nasterii CHAR(2),
+luna_nasterii CHAR(2),
+anul_nasterii CHAR(4),
+strada_pacient VARCHAR(35),
+nrstr_pacient VARCHAR(5),
+bloc_pacient VARCHAR(5),
+scara pacient VARCHAR(3),
+ap_pacient VARCHAR(3),
+oras_pacient VARCHAR(30),
+telefon INT(10) UNSIGNED,
+data_fisa DATE
+) DONE
+													
 
