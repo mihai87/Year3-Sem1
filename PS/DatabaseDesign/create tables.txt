@@ -1,5 +1,12 @@
+CREATE TABLE catalog_interventii (				
+tip_interventie VARCHAR(35) PRIMARY KEY NOT NULL,
+cost_materiale FLOAT(5,2),
+tarif_interventie FLOAT(5,2)
+) DONE
+
+
 CREATE TABLE medici (				
-cnp_medic INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
+cnp_medic CHAR(13) PRIMARY KEY NOT NULL,
 nume_medic VARCHAR(20),
 prenume_medic VARCHAR(25),
 zin_medic CHAR(2),
@@ -13,7 +20,7 @@ ann_medic CHAR(4)
 
 CREATE TABLE contracte_medici (						
 id_contract INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
-cnp_medic INT(13) UNSIGNED,
+cnp_medic CHAR(13),
 telefon_medic INT(10) UNSIGNED,
 email_medic VARCHAR(35),
 ziua_angajarii CHAR(2),
@@ -27,15 +34,16 @@ ON DELETE CASCADE
 
 
 CREATE TABLE adrese_medici (
-cnp_medic INT(13) UNSIGNED,							
+cnp_medic CHAR(13),							
 serieci_medic CHAR(2),
-nrci_medic char(6),
+nrci_medic CHAR(6),
 strada_medic VARCHAR(35),
 nrstr_medic VARCHAR(5),
 bloc_medic VARCHAR(5),
-scara medic VARCHAR(3),
+scara_medic VARCHAR(3),
 ap_medic VARCHAR(3),
 oras_medic VARCHAR(30),
+PRIMARY KEY (serieci_medic, nrci_medic),
 FOREIGN KEY (cnp_medic)
 REFERENCES medici(cnp_medic)
 ON DELETE CASCADE
@@ -45,7 +53,7 @@ ON DELETE CASCADE
 
 CREATE TABLE plati_medici (			
 id_plata INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
-cnp_medic INT(13) UNSIGNED,
+cnp_medic CHAR(13),
 bonus FLOAT(5,2),
 valoare_plata FLOAT(5,2),
 data_plata DATE,
@@ -58,7 +66,7 @@ ON DELETE CASCADE
 CREATE TABLE foi_consultatie (					
 id_consultatie INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
 numar_fisa INT(11) UNSIGNED,
-cnp_medic INT(13) UNSIGNED,
+cnp_medic CHAR(13),
 tip_interventie VARCHAR(35) NOT NULL,
 observatii TEXT,
 data_intocmire DATE,
@@ -78,7 +86,7 @@ luna_programare CHAR(2),
 an_programare CHAR(4),
 ora_programare CHAR(2),
 minut_programare CHAR(2),
-cnp_medic INT(13) UNSIGNED,
+cnp_medic CHAR(13),
 numar_fisa INT(11) UNSIGNED,
 FOREIGN KEY (cnp_medic)
 REFERENCES medici(cnp_medic)
@@ -119,7 +127,7 @@ anul_nasterii CHAR(4),
 strada_pacient VARCHAR(35),
 nrstr_pacient VARCHAR(5),
 bloc_pacient VARCHAR(5),
-scara pacient VARCHAR(3),
+scara_pacient VARCHAR(3),
 ap_pacient VARCHAR(3),
 oras_pacient VARCHAR(30),
 telefon INT(10) UNSIGNED,

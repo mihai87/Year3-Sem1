@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.7
--- https://www.phpmyadmin.net/
+-- version 4.5.1
+-- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: Oct 28, 2018 at 08:13 PM
--- Server version: 10.1.30-MariaDB
--- PHP Version: 7.2.1
+-- Host: 127.0.0.1
+-- Generation Time: Oct 29, 2018 at 08:40 AM
+-- Server version: 10.1.16-MariaDB
+-- PHP Version: 7.0.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -29,16 +27,16 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `adrese_medici` (
-  `cnp_medic` int(13) UNSIGNED DEFAULT NULL,
-  `serieci_medic` char(2) DEFAULT NULL,
-  `nrci_medic` char(6) DEFAULT NULL,
+  `cnp_medic` char(13) DEFAULT NULL,
+  `serieci_medic` char(2) NOT NULL,
+  `nrci_medic` char(6) NOT NULL,
   `strada_medic` varchar(35) DEFAULT NULL,
   `nrstr_medic` varchar(5) DEFAULT NULL,
   `bloc_medic` varchar(5) DEFAULT NULL,
   `scara_medic` varchar(3) DEFAULT NULL,
   `ap_medic` varchar(3) DEFAULT NULL,
   `oras_medic` varchar(30) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -50,7 +48,7 @@ CREATE TABLE `catalog_interventii` (
   `tip_interventie` varchar(35) NOT NULL,
   `cost_materiale` float(5,2) DEFAULT NULL,
   `tarif_interventie` float(5,2) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -60,14 +58,14 @@ CREATE TABLE `catalog_interventii` (
 
 CREATE TABLE `contracte_medici` (
   `id_contract` int(11) UNSIGNED NOT NULL,
-  `cnp_medic` int(13) UNSIGNED DEFAULT NULL,
+  `cnp_medic` char(13) DEFAULT NULL,
   `telefon_medic` int(10) UNSIGNED DEFAULT NULL,
   `email_medic` varchar(35) DEFAULT NULL,
   `ziua_angajarii` char(2) DEFAULT NULL,
   `luna_angajarii` char(2) DEFAULT NULL,
   `anul_angajarii` char(4) DEFAULT NULL,
   `salariu_angajare` float(5,2) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -90,7 +88,7 @@ CREATE TABLE `fise_pacienti` (
   `oras_pacient` varchar(30) DEFAULT NULL,
   `telefon` int(10) UNSIGNED DEFAULT NULL,
   `data_fisa` date DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -101,11 +99,11 @@ CREATE TABLE `fise_pacienti` (
 CREATE TABLE `foi_consultatie` (
   `id_consultatie` int(11) UNSIGNED NOT NULL,
   `numar_fisa` int(11) UNSIGNED DEFAULT NULL,
-  `cnp_medic` int(13) UNSIGNED DEFAULT NULL,
+  `cnp_medic` char(13) DEFAULT NULL,
   `tip_interventie` varchar(35) NOT NULL,
   `observatii` text,
   `data_intocmire` date DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -118,7 +116,7 @@ CREATE TABLE `incasari` (
   `id_consultatie` int(11) UNSIGNED NOT NULL,
   `valoare_incasare` float(5,2) DEFAULT NULL,
   `data_incasare` date DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -127,13 +125,13 @@ CREATE TABLE `incasari` (
 --
 
 CREATE TABLE `medici` (
-  `cnp_medic` int(11) UNSIGNED NOT NULL,
+  `cnp_medic` char(13) NOT NULL,
   `nume_medic` varchar(20) DEFAULT NULL,
   `prenume_medic` varchar(25) DEFAULT NULL,
   `zin_medic` char(2) DEFAULT NULL,
   `lunan_medic` char(2) DEFAULT NULL,
   `ann_medic` char(4) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -143,11 +141,11 @@ CREATE TABLE `medici` (
 
 CREATE TABLE `plati_medici` (
   `id_plata` int(11) UNSIGNED NOT NULL,
-  `cnp_medic` int(13) UNSIGNED DEFAULT NULL,
+  `cnp_medic` char(13) DEFAULT NULL,
   `bonus` float(5,2) DEFAULT NULL,
   `valoare_plata` float(5,2) DEFAULT NULL,
   `data_plata` date DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -162,9 +160,9 @@ CREATE TABLE `programari_consultatii` (
   `an_programare` char(4) DEFAULT NULL,
   `ora_programare` char(2) DEFAULT NULL,
   `minut_programare` char(2) DEFAULT NULL,
-  `cnp_medic` int(13) UNSIGNED DEFAULT NULL,
+  `cnp_medic` char(13) DEFAULT NULL,
   `numar_fisa` int(11) UNSIGNED DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Indexes for dumped tables
@@ -174,6 +172,7 @@ CREATE TABLE `programari_consultatii` (
 -- Indexes for table `adrese_medici`
 --
 ALTER TABLE `adrese_medici`
+  ADD PRIMARY KEY (`serieci_medic`,`nrci_medic`),
   ADD KEY `cnp_medic` (`cnp_medic`);
 
 --
@@ -240,43 +239,31 @@ ALTER TABLE `programari_consultatii`
 --
 ALTER TABLE `contracte_medici`
   MODIFY `id_contract` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `fise_pacienti`
 --
 ALTER TABLE `fise_pacienti`
   MODIFY `numar_fisa` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `foi_consultatie`
 --
 ALTER TABLE `foi_consultatie`
   MODIFY `id_consultatie` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `incasari`
 --
 ALTER TABLE `incasari`
   MODIFY `id_incasare` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `medici`
---
-ALTER TABLE `medici`
-  MODIFY `cnp_medic` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `plati_medici`
 --
 ALTER TABLE `plati_medici`
   MODIFY `id_plata` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `programari_consultatii`
 --
 ALTER TABLE `programari_consultatii`
   MODIFY `id_programare` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
-
 --
 -- Constraints for dumped tables
 --
@@ -318,7 +305,6 @@ ALTER TABLE `plati_medici`
 ALTER TABLE `programari_consultatii`
   ADD CONSTRAINT `programari_consultatii_ibfk_1` FOREIGN KEY (`cnp_medic`) REFERENCES `medici` (`cnp_medic`) ON DELETE CASCADE,
   ADD CONSTRAINT `programari_consultatii_ibfk_2` FOREIGN KEY (`numar_fisa`) REFERENCES `fise_pacienti` (`numar_fisa`) ON DELETE CASCADE;
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
