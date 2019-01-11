@@ -112,7 +112,7 @@
 				</script>
 			</select>
 			<input type="text" id="salariumedic" placeholder="Salariu Medic (RON)" class="form-control"/>
-			<button type="button" class="btn btn-primary" id="adaugamedicfinal">Inregistrare Contract Medic</button>
+			<button type="button" class="btn btn-primary" id="adaugacontractmedic">Inregistrare Contract Medic</button>
 			<br />
 		</div>
 		
@@ -120,7 +120,7 @@
 			<input type="text" id="numeinterventie" placeholder="Denumire Interventie" class="form-control"/>
 			<input type="text" id="costmateriale" placeholder="Cost Materiale Interventie" class="form-control"/>
 			<input type="text" id="tarif" placeholder="Tarif Materiale Interventie" class="form-control"/>	
-			<button type="button" class="btn btn-primary" id="adaugamedicfinal">Inregistrare Interventie</button>
+			<button type="button" class="btn btn-primary" id="adaugainterventiefinal">Inregistrare Interventie</button>
 			<br />
 		</div>
 		
@@ -256,7 +256,9 @@
 		
 	</div>
 </div>
+				
 <script>
+	
 $("#adaugamedic").click(function(){
 	$("#formular_ad_medic").css('display','block');
 	$("#formular_contract_medic").css('display','none');
@@ -376,6 +378,63 @@ $('#adaugamedicfinal').click(function(){
       success: function(response) {
 			if(response==1){
 				alert('Medicul a fost adaugat in baza de date!');
+			}else{
+				alert(response);
+			}
+	  }
+    });
+});
+	
+	
+	
+	
+//adaugare interventie in baza de date
+	
+$('#adaugainterventiefinal').click(function(){
+	$.ajax({
+      type: "POST",
+	  async: "false",
+      url: "adauga_interventie.php",
+	  data:{
+			'numeinterventie': $('#numeinterventie').val(),
+			'costmateriale': $('#costmateriale').val(),
+			'tarif': $('#tarif').val(),
+			},
+      success: function(response) {
+			if(response==1){
+				alert('Adaugare interventie reusita');
+			}else{
+				alert(response);
+			}
+	  }
+    });
+});
+	
+	
+//adaugare fisa pacient in baza de date
+	
+$('#adaugapacientfinal').click(function(){
+	$.ajax({
+      type: "POST",
+	  async: "false",
+      url: "adauga_fisa_pacient.php",
+	  data:{
+		  
+		    'prenumepacient': $('#prenumepacient').val,
+		    'zinasterepacient': $('#zinasterepacient').val,
+		    'lunanasterepacient': $('#lunanasterepacient').val,
+            'annasterepacient': $('#annasterepacient').val,
+		    'stradapacient': $('#stradapacient').val,
+		    'nrstradapacient': $('#nrstradapacient').val,
+		  	'blocpacient': $('#blocpacient').val,
+		  	'scarapacient': $('#scarapacient').val,
+		  	'appacient': $('#appacient').val,
+		  	'oraspacient': $('#oraspacient').val,
+		  	'telefonpacient': $('#telefonpacient').val,
+			},
+      success: function(response) {
+			if(response==1){
+				alert('Adaugare fisa pacient reusita');
 			}else{
 				alert(response);
 			}

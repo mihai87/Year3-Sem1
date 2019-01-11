@@ -30,7 +30,7 @@ module.exports = {
         
         let image_name = uploadedFile.name;
         let fileExtension = uploadedFile.mimetype.split('/')[1];
-        image_name = username + '.' + fileExtension;
+        image_name = nume_medic + '.' + fileExtension;
 
         let cnp_medicQuery = "SELECT * FROM `medici` WHERE cnp_medic = '" + cnp_medic + "'";
 
