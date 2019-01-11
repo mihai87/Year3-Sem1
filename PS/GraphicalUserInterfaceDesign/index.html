@@ -84,7 +84,7 @@
 			</select>
 			<input type="text" id="telefonmedic" placeholder="Telefon Medic" class="form-control"/>
 			<input type="text" id="emailmedic" placeholder="Email Medic" class="form-control"/>
-			<select id="zinastere" class="form-control">
+			<select id="ziangajare" class="form-control">
 				<option value="0" disabled selected>Zi Angajare</option>
 				<script>
 					for(var i=1; i<=31; i++){
@@ -100,7 +100,7 @@
 					}
 				</script>
 			</select>
-			<select id="annastere" class="form-control">
+			<select id="anangajare" class="form-control">
 				<option value="0" disabled selected>An Angajare</option>
 				<script>
 					var date = new Date();
@@ -112,7 +112,7 @@
 				</script>
 			</select>
 			<input type="text" id="salariumedic" placeholder="Salariu Medic (RON)" class="form-control"/>
-			<button type="button" class="btn btn-primary" id="adaugacontractmedic">Inregistrare Contract Medic</button>
+			<button type="button" class="btn btn-primary" id="finaladaugacontractmedic">Inregistrare Contract Medic</button>
 			<br />
 		</div>
 		
@@ -280,7 +280,24 @@ $("#adaugacontractmedic").click(function(){
 	$("#formular_ad_incasare").css('display','none');
 	$("#formular_ad_plata_medic").css('display','none');
 	$("#formular_ad_programare").css('display','none');
-
+	$("#medic").empty();
+	$("#medic").append('<option value="0" disabled selected>Alege medicul pentru care se realizeaza contractul</option>');
+	
+	$.ajax({
+      type: "POST",
+	  async: "false",
+      url: "medici_existenti.php",
+      success: function(response) {
+				var medici = JSON.parse(response);
+				var i = 0;
+				while(medici[i]){
+					$("#medic").append('<option value="' + medici[i].cnp_medic + '">' + medici[i].prenume_medic + ' ' + medici[i].nume_medic + '</option>');
+					i = i + 1;
+				}
+			}
+		});			
+			
+	
 });
 	
 $("#adaugainterventie").click(function(){
@@ -430,7 +447,7 @@ $('#adaugapacientfinal').click(function(){
 		  	'scarapacient': $('#scarapacient').val(),
 		  	'appacient': $('#appacient').val(),
 		  	'oraspacient': $('#oraspacient').val(),
-		  	'telefonpacient': $('#telefonpacient').val(),
+		  	'telefonpacient': $('#telefonpacient').val()
 			},
       success: function(response) {
 			if(response==1){
@@ -441,6 +458,33 @@ $('#adaugapacientfinal').click(function(){
 	  }
     });
 });
+
+$('#finaladaugacontractmedic').click(function(){
+	$.ajax({
+      type: "POST",
+	  async: "false",
+      url: "adauga_contract_medic.php",
+	  data:{
+		    'cnpmedic': $('#medic').val(),
+		    'telefonmedic': $('#telefonmedic').val(),
+		    'emailmedic': $('#emailmedic').val(),
+		    'ziangajare': $('#ziangajare').val(),
+            'lunaangajare': $('#lunaangajare').val(),
+		    'anangajare': $('#anangajare').val(),
+		    'salariumedic': $('#salariumedic').val()},
+      success: function(response) {
+			if(response==1){
+				alert('Adaugare contract medic reusita');
+			}else{
+				alert(response);
+			}
+	  }
+    });
+});
+
+
+
+
 
 </script>
 </body>
