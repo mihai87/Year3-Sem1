@@ -419,7 +419,7 @@ $('#adaugapacientfinal').click(function(){
 	  async: "false",
       url: "adauga_fisa_pacient.php",
 	  data:{
-		  
+		    'numepacient': $('#numepacient').val(),
 		    'prenumepacient': $('#prenumepacient').val(),
 		    'zinasterepacient': $('#zinasterepacient').val(),
 		    'lunanasterepacient': $('#lunanasterepacient').val(),
