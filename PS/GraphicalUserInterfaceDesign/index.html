@@ -420,17 +420,17 @@ $('#adaugapacientfinal').click(function(){
       url: "adauga_fisa_pacient.php",
 	  data:{
 		  
-		    'prenumepacient': $('#prenumepacient').val,
-		    'zinasterepacient': $('#zinasterepacient').val,
-		    'lunanasterepacient': $('#lunanasterepacient').val,
-            'annasterepacient': $('#annasterepacient').val,
-		    'stradapacient': $('#stradapacient').val,
-		    'nrstradapacient': $('#nrstradapacient').val,
-		  	'blocpacient': $('#blocpacient').val,
-		  	'scarapacient': $('#scarapacient').val,
-		  	'appacient': $('#appacient').val,
-		  	'oraspacient': $('#oraspacient').val,
-		  	'telefonpacient': $('#telefonpacient').val,
+		    'prenumepacient': $('#prenumepacient').val(),
+		    'zinasterepacient': $('#zinasterepacient').val(),
+		    'lunanasterepacient': $('#lunanasterepacient').val(),
+            'annasterepacient': $('#annasterepacient').val(),
+		    'stradapacient': $('#stradapacient').val(),
+		    'nrstradapacient': $('#nrstradapacient').val(),
+		  	'blocpacient': $('#blocpacient').val(),
+		  	'scarapacient': $('#scarapacient').val(),
+		  	'appacient': $('#appacient').val(),
+		  	'oraspacient': $('#oraspacient').val(),
+		  	'telefonpacient': $('#telefonpacient').val(),
 			},
       success: function(response) {
 			if(response==1){
