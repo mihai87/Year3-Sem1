@@ -203,10 +203,71 @@
 			<br />
 		</div>
 		
+		<div id = "formular_ad_programare" style = "display: block">
+			<select id="ziprogramare" class="form-control">
+				<option value="0" disabled selected>Zi Programare</option>
+				<script>
+					for(var i=1; i<=31; i++){
+						document.write("<option value='" + i + "'>" + i + "</option>")
+					}
+				</script>
+			</select>
+			<select id="lunaprogramare" class="form-control">
+				<option value="0" disabled selected>Luna Programare</option>
+				<script>
+					for(var i=1; i<=12; i++){
+						document.write("<option value='" + i + "'>" + i + "</option>")
+					}
+				</script>
+			</select>
+			<select id="anprogramare" class="form-control">
+				<option value="0" disabled selected>An Programare</option>
+				<script>
+					var date = new Date();
+					var an_maxim = date.getFullYear()+1
+					var an_minim = date.getFullYear()
+					for(var i=an_minim; i<=an_maxim; i++){
+						document.write("<option value='" + i + "'>" + i + "</option>")
+					}
+				</script>
+			</select>
+			<select id="oraprogramare" class="form-control">
+				<option value="0" disabled selected>Ora Programare</option>
+				<script>
+					for(var i=1; i<=23; i++){
+						document.write("<option value='" + i + "'>" + i + "</option>")
+					}
+				</script>
+			</select>
+			<select id="minutprogramare" class="form-control">
+				<option value="0" disabled selected>Ora Programare</option>
+				<option value="1" >00</option>
+				<option value="2" >30</option>
+			</select>
+			<select id="medic_programare" class="form-control">
+				<option value="0" disabled selected>Alege medicul la care se face programarea</option>
+			</select>
+			<select id="pacient_programat" class="form-control">
+				<option value="0" disabled selected>Alege pacientul pentru care se face programarea</option>
+			</select>
+			<button type="button" class="btn btn-primary" id="adaugamedicfinal">Inregistrare Programare</button>
+			<br />
+		</div>
+		
 	</div>
 </div>
 <script>
-
+$("#adaugamedic").click(function(){
+	$("#formular_ad_medic").css('display','block');
+	$("#formular_contract_medic").css('display','none');
+	$("#formular_ad_interventie").css('display','none');
+	$("#formular_ad_pacient").css('display','none');
+	$("#formular_ad_consultatie").css('display','none');
+	$("#formular_ad_incasare").css('display','none');
+	$("#formular_ad_plata_medic").css('display','none');
+	$("#formular_ad_programare").css('display','none');
+	$("#formular_ad_programare").css('display','none');
+});
 
 </script>
 </body>
