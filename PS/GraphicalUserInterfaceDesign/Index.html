@@ -127,7 +127,7 @@
 		<div id = "formular_ad_pacient" style = "display: none;">
 			<input type="text" id="numepacient" placeholder="Nume Pacient" class="form-control"/>
 			<input type="text" id="prenumepacient" placeholder="Prenume Pacient" class="form-control"/>	
-			<select id="zinastere" class="form-control">
+			<select id="zinasterepacient" class="form-control">
 				<option value="0" disabled selected>Zi Nastere</option>
 				<script>
 					for(var i=1; i<=31; i++){
@@ -135,7 +135,7 @@
 					}
 				</script>
 			</select>
-			<select id="lunanastere" class="form-control">
+			<select id="lunanasterepacient" class="form-control">
 				<option value="0" disabled selected>Luna Nastere</option>
 				<script>
 					for(var i=1; i<=12; i++){
@@ -143,7 +143,7 @@
 					}
 				</script>
 			</select>
-			<select id="annastere" class="form-control">
+			<select id="annasterepacient" class="form-control">
 				<option value="0" disabled selected>An Nastere</option>
 				<script>
 					var date = new Date();
@@ -266,7 +266,7 @@ $("#adaugamedic").click(function(){
 	$("#formular_ad_incasare").css('display','none');
 	$("#formular_ad_plata_medic").css('display','none');
 	$("#formular_ad_programare").css('display','none');
-	$("#formular_ad_programare").css('display','none');
+
 });
 	
 $("#adaugacontractmedic").click(function(){
@@ -278,7 +278,7 @@ $("#adaugacontractmedic").click(function(){
 	$("#formular_ad_incasare").css('display','none');
 	$("#formular_ad_plata_medic").css('display','none');
 	$("#formular_ad_programare").css('display','none');
-	$("#formular_ad_programare").css('display','none');
+
 });
 	
 $("#adaugainterventie").click(function(){
@@ -302,7 +302,7 @@ $("#adaugapacient").click(function(){
 	$("#formular_ad_incasare").css('display','none');
 	$("#formular_ad_plata_medic").css('display','none');
 	$("#formular_ad_programare").css('display','none');
-	$("#formular_ad_programare").css('display','none');
+
 });
 
 $("#adaugaconsultatie").click(function(){
@@ -314,7 +314,7 @@ $("#adaugaconsultatie").click(function(){
 	$("#formular_ad_incasare").css('display','none');
 	$("#formular_ad_plata_medic").css('display','none');
 	$("#formular_ad_programare").css('display','none');
-	$("#formular_ad_programare").css('display','none');
+
 });
 	
 $("#adaugaincasare").click(function(){
@@ -326,7 +326,7 @@ $("#adaugaincasare").click(function(){
 	$("#formular_ad_incasare").css('display','block');
 	$("#formular_ad_plata_medic").css('display','none');
 	$("#formular_ad_programare").css('display','none');
-	$("#formular_ad_programare").css('display','none');
+
 });
 	
 $("#adaugaplatamedic").click(function(){
@@ -338,7 +338,6 @@ $("#adaugaplatamedic").click(function(){
 	$("#formular_ad_incasare").css('display','none');
 	$("#formular_ad_plata_medic").css('display','block');
 	$("#formular_ad_programare").css('display','none');
-	$("#formular_ad_programare").css('display','none');
 });
 	
 $("#adaugaprogramare").click(function(){
@@ -349,8 +348,39 @@ $("#adaugaprogramare").click(function(){
 	$("#formular_ad_consultatie").css('display','none');
 	$("#formular_ad_incasare").css('display','none');
 	$("#formular_ad_plata_medic").css('display','none');
-	$("#formular_ad_programare").css('display','none');
 	$("#formular_ad_programare").css('display','block');
+});
+
+//urmeaza scripturile pentru scrierea in baza de date
+$('#adaugamedicfinal').click(function(){
+	$.ajax({
+      type: "POST",
+	  async: "false",
+      url: "adauga_medic.php",
+	  data:{
+			'cnpmedic': $('#cnpmedic').val(),
+			'numemedic': $('#numemedic').val(),
+			'prenumemedic': $('#prenumemedic').val(),
+			'zinastere': $('#zinastere').val(),
+			'lunanastere': $('#lunanastere').val(),
+			'annastere': $('#annastere').val(),
+			'seriecimedic': $('#seriecimedic').val(),
+			'numarcimedic': $('#numarcimedic').val(),
+			'stradamedic': $('#stradamedic').val(),
+			'nrstradamedic': $('#nrstradamedic').val(),
+			'blocmedic': $('#blocmedic').val(),
+			'scaramedic': $('#scaramedic').val(),
+			'apmedic': $('#apmedic').val(),
+			'orasmedic': $('#orasmedic').val()
+			},
+      success: function(response) {
+			if(response==1){
+				alert('Medicul a fost adaugat in baza de date!');
+			}else{
+				alert(response);
+			}
+	  }
+    });
 });
 
 </script>
