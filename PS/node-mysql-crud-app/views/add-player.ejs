@@ -1,0 +1,101 @@
+<% include partials/header.ejs %>
+    <div class="container">
+        <% if (message != '') { %>
+            <p class="text-center text-danger"><%= message %></p>
+        <% } %>
+        <form class="add-player-form" action="" method="post" enctype="multipart/form-data">
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <input type="text" class="form-control" name="nume_medic" id="nume-medic" placeholder="Nume Medic" required>
+                </div>
+                <div class="form-group col-md-4">
+                    <input type="text" class="form-control" name="prenume_medic" id="prenume-medic" placeholder="Prenume Medic" required>
+                </div>
+                <div class="form-group col-md-4">
+                    <input type="text" class="form-control" name="cnp_medic" id="cnp-medic" placeholder="CNP Medic" required>
+                </div>
+                <div class="form-group col-md-4">
+                    <input type="text" class="form-control" name="serieci_medic" id="serieci-medic" placeholder="Serie CI Medic" required>
+                </div>
+                <div class="form-group col-md-4">
+                    <input type="text" class="form-control" name="numarci_medic" id="numarci-medic" placeholder="Numar CI Medic" required>
+                </div>
+                <div class="form-group col-md-4">
+                    <input type="text" class="form-control" name="strada_medic" id="strada-medic" placeholder="Strada Medic" required>
+                </div>
+                <div class="form-group col-md-4">
+                    <input type="text" class="form-control" name="nrstr_medic" id="numar-strada-medic" placeholder="Nr. Strada Medic" required>
+                </div>
+                <div class="form-group col-md-4">
+                    <input type="text" class="form-control" name="bloc_medic" id="bloc-medic" placeholder="Bloc Medic" required>
+                </div>
+                <div class="form-group col-md-4">
+                    <input type="text" class="form-control" name="scara_medic" id="scara-medic" placeholder="Scara Medic" required>
+                </div>
+                <div class="form-group col-md-4">
+                    <input type="text" class="form-control" name="ap_medic" id="apartament-medic" placeholder="Apartament Medic" required>
+                </div>
+                <div class="form-group col-md-4">
+                    <input type="text" class="form-control" name="oras_medic" id="oras-medic" placeholder="Oras Medic" required>
+                </div>
+                <div class="form-group col-md-4">
+                    Data Nasterii
+                </div>
+		
+
+<div class="form-group col-md-6">
+<select id="zin_medic" name="zi-nastere-medic" class="form-control" required>
+<option selected disabled>Ziua</option>
+
+  var i;
+  for (i = 1; i < 32; i++) {
+  document.write('<option>' + i + '</option>');
+}
+
+</select>
+</div>
+
+
+<div class="form-group col-md-6">
+<select id="lunan_medic" name="luna-nastere-medic" class="form-control" required>
+<option selected disabled>Luna</option>
+
+  var luni = ["Ianuarie", "Februarie", "Martie", "Aprilie", "Mai", "Iunie", "Iulie", "August", "Septembrie", "Octombrie", "Noiembrie", "Decembrie", ];
+  var i;
+  for (i = 0; i < luni.length; i++) {
+  document.write('<option>' + luni[i] + '</option>');
+}
+
+</select>
+</div>
+
+
+<div class="form-group col-md-6">
+<select id="ann_medic" name="an-nastere-medic" class="form-control" required>
+<option selected disabled>Anul</option>
+
+var i;
+var d = new Date();
+
+var anul = d.getFullYear();
+
+for (i = anul; i >= 1900; i--) {
+document.write('<option>' + i + '</option>');
+}
+
+</select>
+</div>
+
+
+
+                <div class="col-md-12">
+                    <label for="player-img"><b>Player Image</b></label><br>
+                    <input type="file" name="image" id="player-img" class="" required>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary float-right">Adauga Medic</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

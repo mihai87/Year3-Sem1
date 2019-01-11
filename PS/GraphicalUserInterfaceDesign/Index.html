@@ -33,7 +33,7 @@
 	</div>
 	<div class="continut"> 
 		<!--<div class="loader" style="display:none"></div>-->
-		<div id = "formular_ad_medic" style = "display: block">
+		<div id = "formular_ad_medic" style = "display: none;">
 			<input type="text" id="cnpmedic" placeholder="CNP Medic" class="form-control"/>
 			<input type="text" id="numemedic" placeholder="Nume Medic" class="form-control"/>
 			<input type="text" id="prenumemedic" placeholder="Prenume Medic" class="form-control"/>	
@@ -78,7 +78,7 @@
 			<br />
 		</div>
 		
-		<div id = "formular_contract_medic" style = "display: block">
+		<div id = "formular_contract_medic" style = "display: none;">
 			<select id="medic" class="form-control">
 				<option value="0" disabled selected>Alege medicul pentru care se realizeaza contractul</option>
 			</select>
@@ -116,7 +116,7 @@
 			<br />
 		</div>
 		
-		<div id = "formular_ad_interventie" style = "display: block">
+		<div id = "formular_ad_interventie" style = "display: none;">
 			<input type="text" id="numeinterventie" placeholder="Denumire Interventie" class="form-control"/>
 			<input type="text" id="costmateriale" placeholder="Cost Materiale Interventie" class="form-control"/>
 			<input type="text" id="tarif" placeholder="Tarif Materiale Interventie" class="form-control"/>	
@@ -124,7 +124,7 @@
 			<br />
 		</div>
 		
-		<div id = "formular_ad_pacient" style = "display: block">
+		<div id = "formular_ad_pacient" style = "display: none;">
 			<input type="text" id="numepacient" placeholder="Nume Pacient" class="form-control"/>
 			<input type="text" id="prenumepacient" placeholder="Prenume Pacient" class="form-control"/>	
 			<select id="zinastere" class="form-control">
@@ -166,7 +166,7 @@
 			<br />
 		</div>
 		
-		<div id = "formular_ad_consultatie" style = "display: block">
+		<div id = "formular_ad_consultatie" style = "display: none;">
 			<select id="pacientconsultat" class="form-control">
 				<option value="0" disabled selected>Alege pacientul pentru care se face consultatia</option>
 			</select>
@@ -181,7 +181,7 @@
 			<br />
 		</div>
 		
-		<div id = "formular_ad_incasare" style = "display: block">
+		<div id = "formular_ad_incasare" style = "display: none;">
 			<select id="pacientconsultat" class="form-control">
 				<option value="0" disabled selected>Alege pacientul pentru care se face incasarea</option>
 			</select>
@@ -193,7 +193,7 @@
 			<br />
 		</div>
 		
-		<div id = "formular_ad_plata_medic" style = "display: block">
+		<div id = "formular_ad_plata_medic" style = "display: none;">
 			<select id="medic_platit" class="form-control">
 				<option value="0" disabled selected>Alege medicul pentru care se realizeaza plata</option>
 			</select>
@@ -203,7 +203,7 @@
 			<br />
 		</div>
 		
-		<div id = "formular_ad_programare" style = "display: block">
+		<div id = "formular_ad_programare" style = "display: none;">
 			<select id="ziprogramare" class="form-control">
 				<option value="0" disabled selected>Zi Programare</option>
 				<script>
@@ -267,6 +267,90 @@ $("#adaugamedic").click(function(){
 	$("#formular_ad_plata_medic").css('display','none');
 	$("#formular_ad_programare").css('display','none');
 	$("#formular_ad_programare").css('display','none');
+});
+	
+$("#adaugacontractmedic").click(function(){
+	$("#formular_ad_medic").css('display','none');
+	$("#formular_contract_medic").css('display','block');
+	$("#formular_ad_interventie").css('display','none');
+	$("#formular_ad_pacient").css('display','none');
+	$("#formular_ad_consultatie").css('display','none');
+	$("#formular_ad_incasare").css('display','none');
+	$("#formular_ad_plata_medic").css('display','none');
+	$("#formular_ad_programare").css('display','none');
+	$("#formular_ad_programare").css('display','none');
+});
+	
+$("#adaugainterventie").click(function(){
+	$("#formular_ad_medic").css('display','none');
+	$("#formular_contract_medic").css('display','none');
+	$("#formular_ad_interventie").css('display','block');
+	$("#formular_ad_pacient").css('display','none');
+	$("#formular_ad_consultatie").css('display','none');
+	$("#formular_ad_incasare").css('display','none');
+	$("#formular_ad_plata_medic").css('display','none');
+	$("#formular_ad_programare").css('display','none');
+	$("#formular_ad_programare").css('display','none');
+});
+	
+$("#adaugapacient").click(function(){
+	$("#formular_ad_medic").css('display','none');
+	$("#formular_contract_medic").css('display','none');
+	$("#formular_ad_interventie").css('display','none');
+	$("#formular_ad_pacient").css('display','block');
+	$("#formular_ad_consultatie").css('display','none');
+	$("#formular_ad_incasare").css('display','none');
+	$("#formular_ad_plata_medic").css('display','none');
+	$("#formular_ad_programare").css('display','none');
+	$("#formular_ad_programare").css('display','none');
+});
+
+$("#adaugaconsultatie").click(function(){
+	$("#formular_ad_medic").css('display','none');
+	$("#formular_contract_medic").css('display','none');
+	$("#formular_ad_interventie").css('display','none');
+	$("#formular_ad_pacient").css('display','none');
+	$("#formular_ad_consultatie").css('display','block');
+	$("#formular_ad_incasare").css('display','none');
+	$("#formular_ad_plata_medic").css('display','none');
+	$("#formular_ad_programare").css('display','none');
+	$("#formular_ad_programare").css('display','none');
+});
+	
+$("#adaugaincasare").click(function(){
+	$("#formular_ad_medic").css('display','none');
+	$("#formular_contract_medic").css('display','none');
+	$("#formular_ad_interventie").css('display','none');
+	$("#formular_ad_pacient").css('display','none');
+	$("#formular_ad_consultatie").css('display','none');
+	$("#formular_ad_incasare").css('display','block');
+	$("#formular_ad_plata_medic").css('display','none');
+	$("#formular_ad_programare").css('display','none');
+	$("#formular_ad_programare").css('display','none');
+});
+	
+$("#adaugaplatamedic").click(function(){
+	$("#formular_ad_medic").css('display','none');
+	$("#formular_contract_medic").css('display','none');
+	$("#formular_ad_interventie").css('display','none');
+	$("#formular_ad_pacient").css('display','none');
+	$("#formular_ad_consultatie").css('display','none');
+	$("#formular_ad_incasare").css('display','none');
+	$("#formular_ad_plata_medic").css('display','block');
+	$("#formular_ad_programare").css('display','none');
+	$("#formular_ad_programare").css('display','none');
+});
+	
+$("#adaugaprogramare").click(function(){
+	$("#formular_ad_medic").css('display','none');
+	$("#formular_contract_medic").css('display','none');
+	$("#formular_ad_interventie").css('display','none');
+	$("#formular_ad_pacient").css('display','none');
+	$("#formular_ad_consultatie").css('display','none');
+	$("#formular_ad_incasare").css('display','none');
+	$("#formular_ad_plata_medic").css('display','none');
+	$("#formular_ad_programare").css('display','none');
+	$("#formular_ad_programare").css('display','block');
 });
 
 </script>
