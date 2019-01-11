@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"> 
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Proiect Sincretic 2019 - Informatizare cabinet medical</title>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+<div class="topbar">
+	<select id="bloguriexistente" style="display:none" class="form-control">
+	</select>
+	<button type="button" class="btn btn-primary" id="resetblogslist" style="display:none">Reset</button>
+</div><br />
+<div class="meniusicontinut">
+	<div class="meniu">
+		<div class="btn-group-vertical">
+		  <button type="button" class="btn btn-primary" id="adaugamedic"><b>+</b> Medic</button>
+		  <button type="button" class="btn btn-primary" id="adaugacontractmedic"><b>+</b> Contract Medic</button>
+		  <button type="button" class="btn btn-primary" id="adaugainterventie"><b>+</b> Interventii</button>
+		  <button type="button" class="btn btn-primary" id="adaugapacient"><b>+</b> Fisa pacient</button>
+		  <button type="button" class="btn btn-primary" id="adaugaconsultatie"><b>+</b> Consultatie</button>
+		  <button type="button" class="btn btn-primary" id="adaugaincasare"><b>+</b> Incasare</button>
+		  <button type="button" class="btn btn-primary" id="adaugaplatamedic"><b>+</b> Plata Medic</button>
+		  <button type="button" class="btn btn-primary" id="adaugaprogramare"><b>+</b> Programare</button>
+		</div>
+	</div>
+	<div class="continut"> 
+		<!--<div class="loader" style="display:none"></div>-->
+		<div id = "formular_ad_medic" style = "display: block">
+			<input type="text" id="cnpmedic" placeholder="CNP Medic" class="form-control"/>
+			<input type="text" id="numemedic" placeholder="Nume Medic" class="form-control"/>
+			<input type="text" id="prenumemedic" placeholder="Prenume Medic" class="form-control"/>	
+			<select id="zinastere" class="form-control">
+				<option value="0" disabled selected>Zi Nastere</option>
+				<script>
+					for(var i=1; i<=31; i++){
+						document.write("<option value='" + i + "'>" + i + "</option>")
+					}
+				</script>
+			</select>
+			<select id="lunanastere" class="form-control">
+				<option value="0" disabled selected>Luna Nastere</option>
+				<script>
+					for(var i=1; i<=12; i++){
+						document.write("<option value='" + i + "'>" + i + "</option>")
+					}
+				</script>
+			</select>
+			<select id="annastere" class="form-control">
+				<option value="0" disabled selected>An Nastere</option>
+				<script>
+					var date = new Date();
+					var an_maxim = date.getFullYear()-28 <!-- consideram ca un medic are minim 28 de ani-->
+					var an_minim = an_maxim - 52 <!-- consideram ca un medic va profesa pana la maxim 80 de ani-->
+					for(var i=an_minim; i<=an_maxim; i++){
+						document.write("<option value='" + i + "'>" + i + "</option>")
+					}
+				</script>
+			</select>
+			</br>Detalii carte identitate medic: </br></br>
+			<input type="text" id="seriecimedic" placeholder="Serie Carte Identitate Medic" class="form-control"/>
+			<input type="text" id="numarcimedic" placeholder="Numar Carte Identitate Medic" class="form-control"/>
+			</br>Adresa medic: </br></br>
+			<input type="text" id="stradamedic" placeholder="Strada Medic" class="form-control"/>
+			<input type="text" id="nrstradamedic" placeholder="Numar Strada Medic" class="form-control"/>
+			<input type="text" id="blocmedic" placeholder="Bloc Medic" class="form-control"/>
+			<input type="text" id="scaramedic" placeholder="Scara Medic" class="form-control"/>
+			<input type="text" id="apmedic" placeholder="Apartament Medic" class="form-control"/>
+			<input type="text" id="orasmedic" placeholder="Oras Medic" class="form-control"/><br />
+			<button type="button" class="btn btn-primary" id="adaugamedicfinal">Inregistrare Medic</button>
+			<br />
+		</div>
+		
+		<div id = "formular_contract_medic" style = "display: block">
+			<select id="medic" class="form-control">
+				<option value="0" disabled selected>Alege medicul pentru care se realizeaza contractul</option>
+			</select>
+			<input type="text" id="telefonmedic" placeholder="Telefon Medic" class="form-control"/>
+			<input type="text" id="emailmedic" placeholder="Email Medic" class="form-control"/>
+			<select id="zinastere" class="form-control">
+				<option value="0" disabled selected>Zi Angajare</option>
+				<script>
+					for(var i=1; i<=31; i++){
+						document.write("<option value='" + i + "'>" + i + "</option>")
+					}
+				</script>
+			</select>
+			<select id="lunaangajare" class="form-control">
+				<option value="0" disabled selected>Luna Angajare</option>
+				<script>
+					for(var i=1; i<=12; i++){
+						document.write("<option value='" + i + "'>" + i + "</option>")
+					}
+				</script>
+			</select>
+			<select id="annastere" class="form-control">
+				<option value="0" disabled selected>An Angajare</option>
+				<script>
+					var date = new Date();
+					var an_maxim = date.getFullYear()+1 
+					var an_minim = an_maxim - 5
+					for(var i=an_minim; i<=an_maxim; i++){
+						document.write("<option value='" + i + "'>" + i + "</option>")
+					}
+				</script>
+			</select>
+			<input type="text" id="salariumedic" placeholder="Salariu Medic (RON)" class="form-control"/>
+			<button type="button" class="btn btn-primary" id="adaugamedicfinal">Inregistrare Contract Medic</button>
+			<br />
+		</div>
+		
+		<div id = "formular_ad_interventie" style = "display: block">
+			<input type="text" id="numeinterventie" placeholder="Denumire Interventie" class="form-control"/>
+			<input type="text" id="costmateriale" placeholder="Cost Materiale Interventie" class="form-control"/>
+			<input type="text" id="tarif" placeholder="Tarif Materiale Interventie" class="form-control"/>	
+			<button type="button" class="btn btn-primary" id="adaugamedicfinal">Inregistrare Interventie</button>
+			<br />
+		</div>
+		
+		<div id = "formular_ad_pacient" style = "display: block">
+			<input type="text" id="numepacient" placeholder="Nume Pacient" class="form-control"/>
+			<input type="text" id="prenumepacient" placeholder="Prenume Pacient" class="form-control"/>	
+			<select id="zinastere" class="form-control">
+				<option value="0" disabled selected>Zi Nastere</option>
+				<script>
+					for(var i=1; i<=31; i++){
+						document.write("<option value='" + i + "'>" + i + "</option>")
+					}
+				</script>
+			</select>
+			<select id="lunanastere" class="form-control">
+				<option value="0" disabled selected>Luna Nastere</option>
+				<script>
+					for(var i=1; i<=12; i++){
+						document.write("<option value='" + i + "'>" + i + "</option>")
+					}
+				</script>
+			</select>
+			<select id="annastere" class="form-control">
+				<option value="0" disabled selected>An Nastere</option>
+				<script>
+					var date = new Date();
+					var an_maxim = date.getFullYear()-4 <!-- consideram ca un pacient are minim 4 de ani-->
+					var an_minim = an_maxim - 86 <!-- consideram varsta unui pacient maxim 90 de ani-->
+					for(var i=an_minim; i<=an_maxim; i++){
+						document.write("<option value='" + i + "'>" + i + "</option>")
+					}
+				</script>
+			</select>
+			</br>Adresa Pacient: </br></br>
+			<input type="text" id="stradapacient" placeholder="Strada Pacient" class="form-control"/>
+			<input type="text" id="nrstradapacient" placeholder="Numar Strada Pacient" class="form-control"/>
+			<input type="text" id="blocpacient" placeholder="Bloc Pacient" class="form-control"/>
+			<input type="text" id="scarapacient" placeholder="Scara Pacient" class="form-control"/>
+			<input type="text" id="appacient" placeholder="Apartament Pacient" class="form-control"/>
+			<input type="text" id="oraspacient" placeholder="Oras Pacient" class="form-control"/><br />
+			<input type="text" id="telefonpacient" placeholder="Telefon Pacient" class="form-control"/><br />
+			<button type="button" class="btn btn-primary" id="adaugapacientfinal">Inregistrare Fisa Pacient</button>
+			<br />
+		</div>
+		
+		<div id = "formular_ad_consultatie" style = "display: block">
+			<select id="pacientconsultat" class="form-control">
+				<option value="0" disabled selected>Alege pacientul pentru care se face consultatia</option>
+			</select>
+			<select id="medic_consultant" class="form-control">
+				<option value="0" disabled selected>Alege medicul care a realizat consultatia</option>
+			</select>
+			<select id="interventie_consultatie" class="form-control">
+				<option value="0" disabled selected>Alege interventia de la consultatie</option>
+			</select>
+			<input type="text" id="observatiiconsultatie" placeholder="Observatii Consultatii" class="form-control"/>	
+			<button type="button" class="btn btn-primary" id="adaugamedicfinal">Inregistrare Consultatie</button>
+			<br />
+		</div>
+		
+		<div id = "formular_ad_incasare" style = "display: block">
+			<select id="pacientconsultat" class="form-control">
+				<option value="0" disabled selected>Alege pacientul pentru care se face incasarea</option>
+			</select>
+			<select id="consultantie_platita" class="form-control">
+				<option value="0" disabled selected>Alege consultatia pentru care se realizeaza plata</option>
+			</select>
+			<input type="text" id="valoareplata" placeholder="Valoare plata (RON)" class="form-control"/>	
+			<button type="button" class="btn btn-primary" id="adaugamedicfinal">Inregistrare Plata</button>
+			<br />
+		</div>
+		
+		<div id = "formular_ad_plata_medic" style = "display: block">
+			<select id="medic_platit" class="form-control">
+				<option value="0" disabled selected>Alege medicul pentru care se realizeaza plata</option>
+			</select>
+			<input type="text" id="valoarebonus" placeholder="Valoare bonus (RON)" class="form-control"/>
+			<input type="text" id="valoareplata" placeholder="Valoare plata incluzand bunusul (RON)" class="form-control"/>			
+			<button type="button" class="btn btn-primary" id="adaugamedicfinal">Inregistrare Plata Medic</button>
+			<br />
+		</div>
+		
+	</div>
+</div>
+<script>
+
+
+</script>
+</body>
+</html>

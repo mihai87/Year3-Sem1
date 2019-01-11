@@ -1,0 +1,71 @@
+.topbar{
+	width: 100%;
+	height: 70px;
+	background-color: #0479C8;
+	color: white;
+}
+
+.meniusicontinut{
+	width: 100%;
+	height: 80%;
+}
+
+.meniu{
+	width: 15%;
+	height: 100%;
+	float: left;
+	text-align: left;
+}
+
+.continut{
+	width: 84%;
+	height: 100%;
+	float: left;
+}
+
+.displaynivel{
+	width: 80%;
+	margin: 0 auto;
+	height: 40px;
+	border: 1px solid gray;
+}
+
+
+.displaysursa{
+	width: 15%;
+	margin: 0 auto;
+	height: 35px;
+	cursor: pointer;
+	background-color: #67039C;
+	color: white;
+	display: inline;
+	padding: 5px 10px 10px 5px;
+	margin: 5px 2px2px 5px;
+	border: 1px solid gray;
+}
+
+.displaysursa:hover{
+	background-color: #E4C4F5;
+}
+
+.loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid blue;
+  border-right: 16px solid green;
+  border-bottom: 16px solid red;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
