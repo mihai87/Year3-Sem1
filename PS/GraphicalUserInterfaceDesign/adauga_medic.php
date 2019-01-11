@@ -11,10 +11,10 @@ if($result){
 	if($result_adresa){
 		echo 1;
 	}else{
-		echo "Nu s-a putut retine medicul in baza de date!";
+		echo "Nu s-a putut retine medicul in baza de date! ".$conn->error;
 	}
 }else{
-	echo "Nu s-a putut retine medicul in baza de date!";
+	echo "Nu s-a putut retine medicul in baza de date! ".$conn->error;
 }
 $conn->close();
 ?>
