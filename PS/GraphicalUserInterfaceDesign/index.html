@@ -250,7 +250,7 @@
 			<select id="pacient_programat" class="form-control">
 				<option value="0" disabled selected>Alege pacientul pentru care se face programarea</option>
 			</select>
-			<button type="button" class="btn btn-primary" id="adaugaprogramare">Inregistrare Programare</button>
+			<button type="button" class="btn btn-primary" id="adaugaprogramarefinal">Inregistrare Programare</button>
 			<br />
 		</div>
 		
@@ -368,9 +368,10 @@ $("#adaugaprogramare").click(function(){
 	$("#formular_ad_incasare").css('display','none');
 	$("#formular_ad_plata_medic").css('display','none');
 	$("#formular_ad_programare").css('display','block');
-	
 	$("#medic_programare").empty();
 	$("#medic_programare").append('<option value="0" disabled selected>Alege medicul la care se face programarea</option>');
+	$("#pacient_programat").empty();
+	$("#pacient_programat").append('<option value="0" disabled selected>Alege pacientul pentru care se face programarea</option>');
 	
 	$.ajax({
       type: "POST",
@@ -397,7 +398,7 @@ $("#adaugaprogramare").click(function(){
 				var pacienti = JSON.parse(response);
 				var i = 0;
 				while(pacienti[i]){
-					$("#pacient_programare").append('<option value="' + pacienti[i].numar_fisa + '">' + pacienti[i].prenume_pacient + ' ' + pacienti[i].nume_pacient + '</option>');
+					$("#pacient_programat").append('<option value="' + pacienti[i].numar_fisa + '">' + pacienti[i].prenume_pacient + ' ' + pacienti[i].nume_pacient + '</option>');
 					i = i + 1;
 				}
 			}
@@ -517,7 +518,31 @@ $('#finaladaugacontractmedic').click(function(){
     });
 });
 
-
+// Adauga programare
+	
+$('#adaugaprogramarefinal').click(function(){
+	$.ajax({
+      type: "POST",
+	  async: "false",
+      url: "adauga_programare.php",
+	  data:{
+			'ziprogramare': $('#ziprogramare').val(),
+			'lunaprogramare': $('#lunaprogramare').val(),
+			'anprogramare': $('#anprogramare').val(),
+			'oraprogramare': $('#oraprogramare').val(),
+			'minutprogramare': $('#minutprogramare').val(),
+			'medic_programare': $('#medic_programare').val(),
+			'pacient_programat': $('#pacient_programat').val(),
+			},
+      success: function(response) {
+			if(response==1){
+				alert('Programarea a fost adaugat in baza de date!');
+			}else{
+				alert(response);
+			}
+	  }
+    });
+});
 
 
 
