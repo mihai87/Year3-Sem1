@@ -188,7 +188,7 @@
 			<select id="consultantie_platita" class="form-control">
 				<option value="0" disabled selected>Alege consultatia pentru care se realizeaza plata</option>
 			</select>
-			<input type="text" id="valoareplata" placeholder="Valoare plata (RON)" class="form-control"/>	
+			<input type="text" id="valoareconsultatie" placeholder="Valoare plata (RON)" class="form-control"/>	
 			<button type="button" class="btn btn-primary" id="adaugamedicfinal">Inregistrare Plata</button>
 			<br />
 		</div>
@@ -199,7 +199,7 @@
 			</select>
 			<input type="text" id="valoarebonus" placeholder="Valoare bonus (RON)" class="form-control"/>
 			<input type="text" id="valoareplata" placeholder="Valoare plata incluzand bunusul (RON)" class="form-control"/>			
-			<button type="button" class="btn btn-primary" id="adaugamedicfinal">Inregistrare Plata Medic</button>
+			<button type="button" class="btn btn-primary" id="adaugaplatamedicfinal">Inregistrare Plata Medic</button>
 			<br />
 		</div>
 		
@@ -357,6 +357,22 @@ $("#adaugaplatamedic").click(function(){
 	$("#formular_ad_incasare").css('display','none');
 	$("#formular_ad_plata_medic").css('display','block');
 	$("#formular_ad_programare").css('display','none');
+	$("#medic_platit").empty();
+	$("#medic_platit").append('<option value="0" disabled selected>Alege medicul pentru care se realizeaza plata</option>');
+		
+	$.ajax({
+      type: "POST",
+	  async: "false",
+      url: "medici_existenti.php",
+      success: function(response) {
+				var medici = JSON.parse(response);
+				var i = 0;
+				while(medici[i]){
+					$("#medic_platit").append('<option value="' + medici[i].cnp_medic + '">' + medici[i].prenume_medic + ' ' + medici[i].nume_medic + '</option>');
+					i = i + 1;
+				}
+			}
+		});	
 });
 	
 $("#adaugaprogramare").click(function(){
@@ -544,7 +560,27 @@ $('#adaugaprogramarefinal').click(function(){
     });
 });
 
+	// Adauga plata medic
 
+$('#adaugaplatamedicfinal').click(function(){
+	$.ajax({
+      type: "POST",
+	  async: "false",
+      url: "adauga_plata_medic.php",
+	  data:{
+		 	'cnpmedic': $('#medic').val(),
+			'valoarebonus': $('#valoarebonus').val(),
+			'valoareplata': $('#valoareplata').val(),
+			},
+      success: function(response) {
+			if(response==1){
+				alert('Plata medic a fost adaugata in baza de date!');
+			}else{
+				alert(response);
+			}
+	  }
+    });
+});
 
 </script>
 </body>
