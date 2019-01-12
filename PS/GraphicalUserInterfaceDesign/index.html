@@ -250,7 +250,7 @@
 			<select id="pacient_programat" class="form-control">
 				<option value="0" disabled selected>Alege pacientul pentru care se face programarea</option>
 			</select>
-			<button type="button" class="btn btn-primary" id="adaugamedicfinal">Inregistrare Programare</button>
+			<button type="button" class="btn btn-primary" id="adaugaprogramare">Inregistrare Programare</button>
 			<br />
 		</div>
 		
@@ -368,6 +368,41 @@ $("#adaugaprogramare").click(function(){
 	$("#formular_ad_incasare").css('display','none');
 	$("#formular_ad_plata_medic").css('display','none');
 	$("#formular_ad_programare").css('display','block');
+	
+	$("#medic_programare").empty();
+	$("#medic_programare").append('<option value="0" disabled selected>Alege medicul la care se face programarea</option>');
+	
+	$.ajax({
+      type: "POST",
+	  async: "false",
+      url: "medici_existenti.php",
+      success: function(response) {
+				var medici = JSON.parse(response);
+				var i = 0;
+				while(medici[i]){
+					$("#medic_programare").append('<option value="' + medici[i].cnp_medic + '">' + medici[i].prenume_medic + ' ' + medici[i].nume_medic + '</option>');
+					i = i + 1;
+				}
+			}
+		});	
+	
+	$("#pacient_programat").empty();
+	$("#pacient_programat").append('<option value="0" disabled selected>Alege pacientul pentru care se face programarea</option>');
+	
+	$.ajax({
+      type: "POST",
+	  async: "false",
+      url: "pacienti_existenti.php",
+      success: function(response) {
+				var pacienti = JSON.parse(response);
+				var i = 0;
+				while(pacienti[i]){
+					$("#pacient_programare").append('<option value="' + pacienti[i].numar_fisa + '">' + pacienti[i].prenume_pacient + ' ' + pacienti[i].nume_pacient + '</option>');
+					i = i + 1;
+				}
+			}
+		});	
+	
 });
 
 //urmeaza scripturile pentru scrierea in baza de date
