@@ -662,13 +662,13 @@ $('#adaugaconsultatiefinal').click(function(){
       url: "adauga_consultatie.php",
 	  data:{
 		 	'pacientconsultat': $('#pacientconsultat').val(),
-			'medic_consultant': $('#pacientconsultat').val(),
-			'interventie_consultatie': $('#pacientconsultat').val(),
-			'observatiiconsultatie': $('#pacientconsultat').val(),
+			'medic_consultant': $('#medic_consultant').val(),
+			'interventie_consultatie': $('#interventie_consultatie').val(),
+			'observatiiconsultatie': $('#observatiiconsultatie').val(),
 			},
       success: function(response) {
 			if(response==1){
-				alert('Plata medic a fost adaugata in baza de date!');
+				alert('Consultatia a fost adaugata in baza de date!');
 			}else{
 				alert(response);
 			}
