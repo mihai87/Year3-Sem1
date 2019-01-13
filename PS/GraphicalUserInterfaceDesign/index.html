@@ -185,7 +185,7 @@
 			<select id="pacientincasat" class="form-control">
 				<option value="0" disabled selected>Alege pacientul pentru care se face incasarea</option>
 			</select>
-			<select id="consultantie_platita" class="form-control">
+			<select id="consultatie_platita" class="form-control">
 				<option value="0" disabled selected>Alege consultatia pentru care se realizeaza plata</option>
 			</select>
 			<input type="text" id="valoareconsultatie" placeholder="Valoare plata (RON)" class="form-control"/>	
@@ -417,6 +417,24 @@ $("#adaugaincasare").click(function(){
 			}
 		});	
 
+	$("#consultatie_platita").empty();
+	$("#consultatie_platita").append('<option value="0" disabled selected>Alege consultatia pentru care se realizeaza plata</option>');
+	
+	$.ajax({
+      type: "POST",
+	  async: "false",
+      url: "selectie_consultatii.php",
+      success: function(response) {
+				var consultatii = JSON.parse(response);
+				var i = 0;
+				while(consultatii[i]){
+					$("#consultatie_platita").append('<option value="' + consultatii[i].id_consultatie + '">' + consultatii[i].tip_interventie + ' ' + consultatii[i].observatii + '</option>');
+					i = i + 1;
+				}
+			}
+		});	
+	
+	
 });
 	
 $("#adaugaplatamedic").click(function(){
@@ -679,28 +697,27 @@ $('#adaugaconsultatiefinal').click(function(){
 	
 	
 	
-	// Adauga incasare
+	// Transmitere fise pacient catre baza de date si returnarea doar consultatiilor aferente acelei fise de pacient
 	
-$('#adaugaincasarefinal').click(function(){
+$('#pacientincasat').change(function(){
 	$.ajax({
       type: "POST",
 	  async: "false",
-      url: "adauga_consultatie.php",
+      url: "selectie_consultatii.php",
 	  data:{
-		 	'pacientconsultat': $('#pacientconsultat').val(),
-			'medic_consultant': $('#medic_consultant').val(),
-			'interventie_consultatie': $('#interventie_consultatie').val(),
-			'observatiiconsultatie': $('#observatiiconsultatie').val(),
+		 	'pacientincasat': $('#pacientincasat').val(),
 			},
       success: function(response) {
 			if(response==1){
-				alert('Consultatia a fost adaugata in baza de date!');
+				
 			}else{
 				alert(response);
 			}
 	  }
     });
 });
+	
+
 
 </script>
 </body>
