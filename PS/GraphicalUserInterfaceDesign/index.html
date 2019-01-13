@@ -417,22 +417,7 @@ $("#adaugaincasare").click(function(){
 			}
 		});	
 
-	$("#consultatie_platita").empty();
-	$("#consultatie_platita").append('<option value="0" disabled selected>Alege consultatia pentru care se realizeaza plata</option>');
-	
-	$.ajax({
-      type: "POST",
-	  async: "false",
-      url: "selectie_consultatii.php",
-      success: function(response) {
-				var consultatii = JSON.parse(response);
-				var i = 0;
-				while(consultatii[i]){
-					$("#consultatie_platita").append('<option value="' + consultatii[i].id_consultatie + '">' + consultatii[i].tip_interventie + ' ' + consultatii[i].observatii + '</option>');
-					i = i + 1;
-				}
-			}
-		});	
+
 	
 	
 });
@@ -715,6 +700,24 @@ $('#pacientincasat').change(function(){
 			}
 	  }
     });
+	
+
+	$("#consultatie_platita").empty();
+	$("#consultatie_platita").append('<option value="0" disabled selected>Alege consultatia pentru care se realizeaza plata</option>');
+	
+	$.ajax({
+      type: "POST",
+	  async: "false",
+      url: "selectie_consultatii.php",
+      success: function(response) {
+				var consultatii = JSON.parse(response);
+				var i = 0;
+				while(consultatii[i]){
+					$("#consultatie_platita").append('<option value="' + consultatii[i].id_consultatie + '">' + consultatii[i].tip_interventie + ' ' + consultatii[i].observatii + '</option>');
+					i = i + 1;
+				}
+			}
+		});	
 });
 	
 
