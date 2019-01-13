@@ -11,13 +11,24 @@ if($result){
 		$result->data_seek($i);
 		$interventie = $result->fetch_array(MYSQLI_ASSOC);
 		
-		$query_valoare_plati = "SELECT SUM(valoare_incasare) FROM incasari WHERE id_consultatie = " $interventie['id_consultatie'];
+		$query_valoare_plati = "SELECT SUM(valoare_incasare) FROM incasari WHERE id_consultatie = ". $interventie['id_consultatie'];
 		$result_total = $conn->query($query_valoare_plati);
 		$result_total->data_seek(0);
 		$suma_incasari = $result_total->fetch_array(MYSQLI_ASSOC);
 		$suma_extrasa = $suma_incasari['SUM(valoare_incasare)'];
 		
-		array_push($interventii_existente, $interventie);
+		$query_cost_interventie = "SELECT tarif_interventie FROM catalog_interventii WHERE tip_interventie = '". $interventie['tip_interventie']."'";
+		$result_cost = $conn->query($query_cost_interventie);
+		if($result_cost){
+			$result_cost->data_seek(0);
+			$cost = $result_cost->fetch_array(MYSQLI_ASSOC);
+			$cost_extras = $cost['tarif_interventie'];
+			if($suma_extrasa<$cost_extras){//inca nu a fost achitat integral costul
+				$diferenta = $cost_extras - $suma_extrasa;
+				$interventie['diferenta'] = $diferenta;
+				array_push($interventii_existente, $interventie);
+				}
+			}
 	}
 }
 echo json_encode($interventii_existente);

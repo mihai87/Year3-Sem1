@@ -399,6 +399,8 @@ $("#adaugaincasare").click(function(){
 	$("#formular_ad_plata_medic").css('display','none');
 	$("#formular_ad_programare").css('display','none');
 	
+	$("#consultatie_platita").empty();
+	$("#consultatie_platita").append('<option value="0" disabled selected>Alege consultatia pentru care se realizeaza plata</option>');
 
 	$("#pacientincasat").empty();
 	$("#pacientincasat").append('<option value="0" disabled selected>Alege pacientul pentru care se face incasarea</option>');
@@ -700,7 +702,7 @@ $('#pacientincasat').change(function(){
 				var consultatii = JSON.parse(response);
 				var i = 0;
 				while(consultatii[i]){
-					$("#consultatie_platita").append('<option value="' + consultatii[i].id_consultatie + '">' + consultatii[i].tip_interventie + ' ' + consultatii[i].observatii + '</option>');
+					$("#consultatie_platita").append('<option value="' + consultatii[i].id_consultatie + '">' + consultatii[i].data_intocmire + ': ' + consultatii[i].tip_interventie + ' Restant: ' + consultatii[i].diferenta + ' (RON)</option>');
 					i = i + 1;
 				}
 			}
