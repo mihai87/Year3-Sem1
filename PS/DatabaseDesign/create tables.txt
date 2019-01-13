@@ -70,6 +70,8 @@ cnp_medic CHAR(13),
 tip_interventie VARCHAR(35) NOT NULL,
 observatii TEXT,
 data_intocmire DATE,
+FOREIGN KEY (numar_fisa)
+REFERENCES fise_pacienti(numar_fisa),
 FOREIGN KEY (cnp_medic)
 REFERENCES medici(cnp_medic)
 ON DELETE CASCADE,

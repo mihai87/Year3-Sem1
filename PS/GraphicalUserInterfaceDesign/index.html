@@ -177,12 +177,12 @@
 				<option value="0" disabled selected>Alege interventia de la consultatie</option>
 			</select>
 			<input type="text" id="observatiiconsultatie" placeholder="Observatii Consultatii" class="form-control"/>	
-			<button type="button" class="btn btn-primary" id="adaugamedicfinal">Inregistrare Consultatie</button>
+			<button type="button" class="btn btn-primary" id="adaugaconsultatiefinal">Inregistrare Consultatie</button>
 			<br />
 		</div>
 		
 		<div id = "formular_ad_incasare" style = "display: none;">
-			<select id="pacientconsultat" class="form-control">
+			<select id="pacientincasat" class="form-control">
 				<option value="0" disabled selected>Alege pacientul pentru care se face incasarea</option>
 			</select>
 			<select id="consultantie_platita" class="form-control">
@@ -333,7 +333,60 @@ $("#adaugaconsultatie").click(function(){
 	$("#formular_ad_incasare").css('display','none');
 	$("#formular_ad_plata_medic").css('display','none');
 	$("#formular_ad_programare").css('display','none');
-
+	
+	$("#pacientconsultat").empty();
+	$("#pacientconsultat").append('<option value="0" disabled selected>Alege pacientul pentru care se face consultatia</option>');
+	
+	$.ajax({
+      type: "POST",
+	  async: "false",
+      url: "pacienti_existenti.php",
+      success: function(response) {
+				var pacienti = JSON.parse(response);
+				var i = 0;
+				while(pacienti[i]){
+					$("#pacientconsultat").append('<option value="' + pacienti[i].numar_fisa + '">' + pacienti[i].prenume_pacient + ' ' + pacienti[i].nume_pacient + '</option>');
+					i = i + 1;
+				}
+			}
+		});	
+	
+	$("#medic_consultant").empty();
+	$("#medic_consultant").append('<option value="0" disabled selected>Alege medicul care a realizat consultatia</option>');
+		
+	$.ajax({
+      type: "POST",
+	  async: "false",
+      url: "medici_existenti.php",
+      success: function(response) {
+				var medici = JSON.parse(response);
+				var i = 0;
+				while(medici[i]){
+					$("#medic_consultant").append('<option value="' + medici[i].cnp_medic + '">' + medici[i].prenume_medic + ' ' + medici[i].nume_medic + '</option>');
+					i = i + 1;
+				}
+			}
+		});	
+	
+	
+	$("#interventie_consultatie").empty();
+	$("#interventie_consultatie").append('<option value="0" disabled selected>Alege medicul care a realizat consultatia</option>');
+		
+	$.ajax({
+      type: "POST",
+	  async: "false",
+      url: "interventii_existente.php",
+      success: function(response) {
+				var interventii = JSON.parse(response);
+				var i = 0;
+				while(interventii[i]){
+					$("#interventie_consultatie").append('<option value="' + interventii[i].tip_interventie + '">' + interventii[i].tip_interventie + ' ' + interventii[i].tarif_interventie + '</option>');
+					i = i + 1;
+				}
+			}
+		});	
+	
+	
 });
 	
 $("#adaugaincasare").click(function(){
@@ -345,6 +398,24 @@ $("#adaugaincasare").click(function(){
 	$("#formular_ad_incasare").css('display','block');
 	$("#formular_ad_plata_medic").css('display','none');
 	$("#formular_ad_programare").css('display','none');
+	
+/**	$("#medic").empty();
+	$("#medic").append('<option value="0" disabled selected>Alege medicul pentru care se realizeaza contractul</option>');
+	
+	$.ajax({
+      type: "POST",
+	  async: "false",
+      url: "medici_existenti.php",
+      success: function(response) {
+				var medici = JSON.parse(response);
+				var i = 0;
+				while(medici[i]){
+					$("#medic").append('<option value="' + medici[i].cnp_medic + '">' + medici[i].prenume_medic + ' ' + medici[i].nume_medic + '</option>');
+					i = i + 1;
+				}
+			}
+		});	
+		**/
 
 });
 	
@@ -582,6 +653,29 @@ $('#adaugaplatamedicfinal').click(function(){
     });
 });
 
+	// Adauga Consultatie
+	
+$('#adaugaconsultatiefinal').click(function(){
+	$.ajax({
+      type: "POST",
+	  async: "false",
+      url: "adauga_consultatie.php",
+	  data:{
+		    'numarfisa': $('#numarfisa').val(),
+		 	'tipinterventie': $('#tipinterventie').val(),
+			'observatii': $('#observatii').val(),
+			},
+      success: function(response) {
+			if(response==1){
+				alert('Consultatia a fost adaugata in baza de date!');
+			}else{
+				alert(response);
+			}
+	  }
+    });
+});
+	
+	
 </script>
 </body>
 </html>
