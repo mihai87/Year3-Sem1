@@ -10,6 +10,10 @@ if($result){
 	for($i=0; $i<$result->num_rows;$i++){
 		$result->data_seek($i);
 		$interventie = $result->fetch_array(MYSQLI_ASSOC);
+		
+		$query_valoare_plati = "SELECT SUM(valoare_incasare) FROM incasari WHERE id_consultatie = " .$_POST['interventie['id_consultatie']'];
+		
+		
 		array_push($interventii_existente, $interventie);
 	}
 }
