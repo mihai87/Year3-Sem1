@@ -305,8 +305,11 @@
 				<option value="0" disabled selected>Alege medicul pentru care se realizeaza plata</option>
 			</select>
 			<input type="text" id="valoarebonus" placeholder="Valoare bonus (RON)" class="form-control"/>
-			<input type="text" id="valoareplata" placeholder="Valoare plata incluzand bunusul (RON)" class="form-control"/>			
-			<button type="button" class="btn btn-primary" id="adaugaincasarefinal">Inregistrare Plata Medic</button>
+			<input type="text" id="valoareplata" placeholder="Valoare plata incluzand bunusul (RON)" disabled class="form-control"/>
+			
+			<button type="button" class="btn btn-primary" id="adaugaincasarefinal">Inregistrare Plata Medic</button><br /><br />
+			<div id = "fluturas"></div><br /><br />
+			<button type="button" class="btn btn-primary" id="printfluturas">Printeaza fluturas</button>
 			<br />
 		</div>
 		
@@ -749,6 +752,7 @@ $("#adaugaplatamedic").click(function(){
 	$("#arata_incasari").css('display','none');
 	$("#formular_printare_chitanta").css('display','none');
 	
+	$('#fluturas').empty();
 	$("#medic_platit").empty();
 	$("#medic_platit").append('<option value="0" disabled selected>Alege medicul pentru care se realizeaza plata</option>');
 		
@@ -766,7 +770,65 @@ $("#adaugaplatamedic").click(function(){
 			}
 		});	
 });
-	
+
+var salariu_de_baza_val = 0;
+$("#medic_platit").change(function(){
+	$.ajax({
+      type: "POST",
+	  async: "false",
+      url: "selectie_medic.php",
+	  data: {'cnp_medic': $("#medic_platit").val()},
+      success: function(response) {
+				var salariu_de_baza = JSON.parse(response);
+				salariu_de_baza_val = salariu_de_baza.salariu_angajare;
+				$('#valoareplata').val(salariu_de_baza.salariu_angajare);
+			}
+		});	
+});
+
+$('#valoarebonus').keyup(function(){
+	$('#valoareplata').val('');
+	$('#valoareplata').val(parseInt(salariu_de_baza_val) + parseInt($('#valoarebonus').val()));
+});
+
+/*10% * Sal brut"	"CASS
+25% * Sal brut"	"Salariu brut
+Sal incasat + CAS + CASS*/
+
+$('#adaugaincasarefinal').click(function(){
+	$.ajax({
+      type: "POST",
+	  async: "false",
+      url: "adauga_plata_medic.php",
+	  data:{
+			'cnpmedic': $("#medic_platit").val(),
+			'valoarebonus': $('#valoarebonus').val(),
+			'valoareplata': $('#valoareplata').val(),
+			},
+      success: function(response) {
+			if(response==1){
+				alert('Plata medicului a fost inregistrata cu succes');
+				$('#fluturas').empty();
+				$('#fluturas').append("Fluturas Salariu Medic: <br /><br />" + $("#medic_platit").text() + "<br /><br />Venit Brut: " + $('#valoareplata').val() + 
+				"<br>CASS[10%]: " + (0.1*parseInt($('#valoareplata').val())) + "<br>CAS[25%]: " + (0.25*parseInt($('#valoareplata').val()))+"<br /> Venit Net: " + (0.65*parseInt($('#valoareplata').val())));
+			}else{
+				alert(response);
+			}
+	  }
+    });
+});
+
+$('#printfluturas').click(function(){
+	var divContents = $("#fluturas").html();
+    var printWindow = window.open('', '', 'height=800,width=600');
+    printWindow.document.write('<html><head><title>Fluturas Salariu Medic</title>');
+    printWindow.document.write('</head><body >');
+    printWindow.document.write(divContents);
+    printWindow.document.write('</body></html>');
+    printWindow.document.close();
+    printWindow.print();
+});
+
 $("#adaugaprogramare").click(function(){
 	$("#formular_ad_medic").css('display','none');
 	$("#formular_contract_medic").css('display','none');
