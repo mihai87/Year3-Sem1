@@ -15,6 +15,7 @@ if($result){
 		$result_total = $conn->query($query_valoare_plati);
 		$result_total->data_seek(0);
 		$suma_incasari = $result_total->fetch_array(MYSQLI_ASSOC);
+		$suma_extrasa = $suma_incasari['SUM(valoare_incasare)'];
 		
 		array_push($interventii_existente, $interventie);
 	}
