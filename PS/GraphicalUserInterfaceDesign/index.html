@@ -31,10 +31,46 @@
 		  <button type="button" class="btn btn-primary" id="adaugaprogramare"><b>+</b> Programare</button>
 		  <button type="button" class="btn btn-primary" id="afisarefisapacient"><b>ARATA</b> Fisa Pacient</button>
 		  <button type="button" class="btn btn-primary" id="afisarerestantieri"><b>ARATA</b> Pacienti Restantieri</button>
+		  <button type="button" class="btn btn-primary" id="afisareprogramari"><b>ARATA</b> Programari</button>
 		</div>
 	</div>
 	<div class="continut"> 
 		<!--<div class="loader" style="display:none"></div>-->
+		<div id = "arata_programari" style = "display: none">
+			<select id ='ziprogramarelistare' class="form-control">
+			<option value="0" disabled selected>Zi Programare</option>
+				<script>
+					for(var i=1; i<=31; i++){
+						document.write("<option value='" + i + "'>" + i + "</option>")
+					}
+				</script>
+			</select>
+			<select id ='lunaprogramarelistare' class="form-control">
+			<option value="0" disabled selected>Luna Programare</option>
+				<script>
+					for(var i=1; i<=31; i++){
+						document.write("<option value='" + i + "'>" + i + "</option>")
+					}
+				</script>
+			</select>
+			<select id ='anprogramarelistare' class="form-control">
+			<option value="0" disabled selected>An Programare</option>
+				<script>
+					var date = new Date();
+					var an_maxim = date.getFullYear()+1
+					var an_minim = date.getFullYear()
+					for(var i=an_minim; i<=an_maxim; i++){
+						document.write("<option value='" + i + "'>" + i + "</option>")
+					}
+				</script>
+			</select>
+			<br />
+			<br />
+			<button type="button" class="btn btn-primary" id="listareprogramari">Listeaza programarile</button>
+			<br /><br /><br />
+			<div id = "programari_listate"></div>
+		</div>
+		
 		<div id = "arata_restantieri" style = "display: none">
 			
 		</div>
@@ -275,7 +311,46 @@
 </div>
 				
 <script>
+
+$("#afisareprogramari").click(function(){
+	$("#formular_ad_medic").css('display','none');
+	$("#formular_contract_medic").css('display','none');
+	$("#formular_ad_interventie").css('display','none');
+	$("#formular_ad_pacient").css('display','none');
+	$("#formular_ad_consultatie").css('display','none');
+	$("#formular_ad_incasare").css('display','none');
+	$("#formular_ad_plata_medic").css('display','none');
+	$("#formular_ad_programare").css('display','none');
+	$("#arata_fisa_pacient").css('display','none');
+	$("#arata_restantieri").css('display','none');
+	$("#arata_programari").css('display','block');
 	
+	$("#programari_listate").empty();
+	
+});
+
+$('#listareprogramari').click(function(){
+	$("#programari_listate").empty();
+	$.ajax({
+      type: "POST",
+	  async: "false",
+      url: "listare_programari.php",
+	  data: {'zi': $('#ziprogramarelistare').val(),
+			 'luna': $('#lunaprogramarelistare').val(),
+			 'an': $('#anprogramarelistare').val()
+				},
+      success: function(response) {
+				var programari = JSON.parse(response);
+				var i = 0;
+				while(programari[i]){
+					$("#programari_listate").append('<i><b><u>Pacient:</u></b></i>  ' + programari[i].nume_pacient + ' ' + programari[i].prenume_pacient + ', <i><b><u>Nume medic:</u></b></i>  ' + programari[i].nume_medic + ' ' + programari[i].prenume_medic + ', <i><b><u>ora:</u></b></i>  ' + programari[i].ora_programare + ((programari[i].ora_programare=1)?(':00'):(':30')) + '<br />');
+					i = i + 1;
+				}
+			}
+		});
+	
+});
+
 $("#adaugamedic").click(function(){
 	$("#formular_ad_medic").css('display','block');
 	$("#formular_contract_medic").css('display','none');
@@ -287,6 +362,7 @@ $("#adaugamedic").click(function(){
 	$("#formular_ad_programare").css('display','none');
 	$("#arata_fisa_pacient").css('display','none');
 	$("#arata_restantieri").css('display','none');
+	$("#arata_programari").css('display','none');
 });
 	
 $("#adaugacontractmedic").click(function(){
@@ -300,6 +376,7 @@ $("#adaugacontractmedic").click(function(){
 	$("#formular_ad_programare").css('display','none');
 	$("#arata_fisa_pacient").css('display','none');
 	$("#arata_restantieri").css('display','none');
+	$("#arata_programari").css('display','none');
 	
 	$("#medic").empty();
 	$("#medic").append('<option value="0" disabled selected>Alege medicul pentru care se realizeaza contractul</option>');
@@ -330,9 +407,9 @@ $("#adaugainterventie").click(function(){
 	$("#formular_ad_incasare").css('display','none');
 	$("#formular_ad_plata_medic").css('display','none');
 	$("#formular_ad_programare").css('display','none');
-	$("#formular_ad_programare").css('display','none');
 	$("#arata_fisa_pacient").css('display','none');
 	$("#arata_restantieri").css('display','none');
+	$("#arata_programari").css('display','none');
 });
 	
 $("#adaugapacient").click(function(){
@@ -346,6 +423,7 @@ $("#adaugapacient").click(function(){
 	$("#formular_ad_programare").css('display','none');
 	$("#arata_fisa_pacient").css('display','none');
 	$("#arata_restantieri").css('display','none');
+	$("#arata_programari").css('display','none');
 
 });
 
@@ -360,6 +438,7 @@ $("#adaugaconsultatie").click(function(){
 	$("#formular_ad_programare").css('display','none');
 	$("#arata_fisa_pacient").css('display','none');
 	$("#arata_restantieri").css('display','none');
+	$("#arata_programari").css('display','none');
 	
 	$("#pacientconsultat").empty();
 	$("#pacientconsultat").append('<option value="0" disabled selected>Alege pacientul pentru care se face consultatia</option>');
@@ -427,6 +506,7 @@ $("#adaugaincasare").click(function(){
 	$("#formular_ad_programare").css('display','none');
 	$("#arata_fisa_pacient").css('display','none');
 	$("#arata_restantieri").css('display','none');
+	$("#arata_programari").css('display','none');
 	
 	$("#consultatie_platita").empty();
 	$("#consultatie_platita").append('<option value="0" disabled selected>Alege consultatia pentru care se realizeaza plata</option>');
@@ -464,6 +544,7 @@ $("#adaugaplatamedic").click(function(){
 	$("#formular_ad_programare").css('display','none');
 	$("#arata_fisa_pacient").css('display','none');
 	$("#arata_restantieri").css('display','none');
+	$("#arata_programari").css('display','none');
 	
 	$("#medic_platit").empty();
 	$("#medic_platit").append('<option value="0" disabled selected>Alege medicul pentru care se realizeaza plata</option>');
@@ -494,6 +575,7 @@ $("#adaugaprogramare").click(function(){
 	$("#formular_ad_programare").css('display','block');
 	$("#arata_fisa_pacient").css('display','none');
 	$("#arata_restantieri").css('display','none');
+	$("#arata_programari").css('display','none');
 	
 	
 	$("#medic_programare").empty();
@@ -545,6 +627,7 @@ $('#afisarefisapacient').click(function(){
 	$("#formular_ad_programare").css('display','none');
 	$("#arata_fisa_pacient").css('display','block');
 	$("#arata_restantieri").css('display','none');
+	$("#arata_programari").css('display','none');
 	
 	
 	$("#pacientfisa").empty();
@@ -577,6 +660,7 @@ $('#afisarerestantieri').click(function(){
 	$("#formular_ad_programare").css('display','none');
 	$("#arata_fisa_pacient").css('display','none');
 	$("#arata_restantieri").css('display','block');
+	$("#arata_programari").css('display','none');
 	
 	$("#arata_restantieri").empty();
 	
