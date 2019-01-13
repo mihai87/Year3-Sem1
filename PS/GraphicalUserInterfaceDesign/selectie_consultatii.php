@@ -11,8 +11,10 @@ if($result){
 		$result->data_seek($i);
 		$interventie = $result->fetch_array(MYSQLI_ASSOC);
 		
-		$query_valoare_plati = "SELECT SUM(valoare_incasare) FROM incasari WHERE id_consultatie = " .$interventie['id_consultatie'];
-		
+		$query_valoare_plati = "SELECT SUM(valoare_incasare) FROM incasari WHERE id_consultatie = " $interventie['id_consultatie'];
+		$result_total = $conn->query($query_valoare_plati);
+		$result_total->data_seek(0);
+		$suma_incasari = $result_total->fetch_array(MYSQLI_ASSOC);
 		
 		array_push($interventii_existente, $interventie);
 	}
