@@ -639,7 +639,7 @@ $('#adaugaplatamedicfinal').click(function(){
 	  async: "false",
       url: "adauga_plata_medic.php",
 	  data:{
-		 	'cnpmedic': $('#medic').val(),
+		 	'cnpmedic': $('#medic_platit').val(),
 			'valoarebonus': $('#valoarebonus').val(),
 			'valoareplata': $('#valoareplata').val(),
 			},
@@ -661,9 +661,10 @@ $('#adaugaconsultatiefinal').click(function(){
 	  async: "false",
       url: "adauga_consultatie.php",
 	  data:{
-		 	'cnpmedic': $('#medic').val(),
-			'valoarebonus': $('#valoarebonus').val(),
-			'valoareplata': $('#valoareplata').val(),
+		 	'pacientconsultat': $('#pacientconsultat').val(),
+			'medic_consultant': $('#pacientconsultat').val(),
+			'interventie_consultatie': $('#pacientconsultat').val(),
+			'observatiiconsultatie': $('#pacientconsultat').val(),
 			},
       success: function(response) {
 			if(response==1){
