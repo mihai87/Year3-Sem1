@@ -177,7 +177,7 @@
 				<option value="0" disabled selected>Alege interventia de la consultatie</option>
 			</select>
 			<input type="text" id="observatiiconsultatie" placeholder="Observatii Consultatii" class="form-control"/>	
-			<button type="button" class="btn btn-primary" id="adaugamedicfinal">Inregistrare Consultatie</button>
+			<button type="button" class="btn btn-primary" id="adaugaconsultatiefinal">Inregistrare Consultatie</button>
 			<br />
 		</div>
 		
@@ -653,6 +653,27 @@ $('#adaugaplatamedicfinal').click(function(){
     });
 });
 
+// Adauga consultatie
+
+$('#adaugaconsultatiefinal').click(function(){
+	$.ajax({
+      type: "POST",
+	  async: "false",
+      url: "adauga_consultatie.php",
+	  data:{
+		 	'cnpmedic': $('#medic').val(),
+			'valoarebonus': $('#valoarebonus').val(),
+			'valoareplata': $('#valoareplata').val(),
+			},
+      success: function(response) {
+			if(response==1){
+				alert('Plata medic a fost adaugata in baza de date!');
+			}else{
+				alert(response);
+			}
+	  }
+    });
+});
 </script>
 </body>
 </html>
