@@ -32,10 +32,45 @@
 		  <button type="button" class="btn btn-primary" id="afisarefisapacient"><b>ARATA</b> Fisa Pacient</button>
 		  <button type="button" class="btn btn-primary" id="afisarerestantieri"><b>ARATA</b> Pacienti Restantieri</button>
 		  <button type="button" class="btn btn-primary" id="afisareprogramari"><b>ARATA</b> Programari</button>
+		  <button type="button" class="btn btn-primary" id="afisareincasari"><b>ARATA</b> Incasari</button>
 		</div>
 	</div>
 	<div class="continut"> 
 		<!--<div class="loader" style="display:none"></div>-->
+		<div id = "arata_incasari" style = "display: none">
+			<select id ='ziincasarelistare' class="form-control">
+			<option value="0" disabled selected>Zi Incasare</option>
+				<script>
+					for(var i=1; i<=31; i++){
+						document.write("<option value='" + i + "'>" + i + "</option>")
+					}
+				</script>
+			</select>
+			<select id ='lunaincasarelistare' class="form-control">
+			<option value="0" disabled selected>Luna Incasare</option>
+				<script>
+					for(var i=1; i<=31; i++){
+						document.write("<option value='" + i + "'>" + i + "</option>")
+					}
+				</script>
+			</select>
+			<select id ='anincasarelistare' class="form-control">
+			<option value="0" disabled selected>An Incasare</option>
+				<script>
+					var date = new Date();
+					var an_maxim = date.getFullYear()
+					var an_minim = date.getFullYear() - 20 //pot fi verificate incasarile pe ultimii 20 de ani
+					for(var i=an_minim; i<=an_maxim; i++){
+						document.write("<option value='" + i + "'>" + i + "</option>")
+					}
+				</script>
+			</select>
+			<br />
+			<br />
+			<button type="button" class="btn btn-primary" id="listareincasari">Listeaza Incasarile</button>
+			<br /><br /><br />
+			<div id = "incasari_listate"></div>
+		</div>
 		<div id = "arata_programari" style = "display: none">
 			<select id ='ziprogramarelistare' class="form-control">
 			<option value="0" disabled selected>Zi Programare</option>
@@ -312,6 +347,41 @@
 				
 <script>
 
+$("#afisareincasari").click(function(){
+	$("#formular_ad_medic").css('display','none');
+	$("#formular_contract_medic").css('display','none');
+	$("#formular_ad_interventie").css('display','none');
+	$("#formular_ad_pacient").css('display','none');
+	$("#formular_ad_consultatie").css('display','none');
+	$("#formular_ad_incasare").css('display','none');
+	$("#formular_ad_plata_medic").css('display','none');
+	$("#formular_ad_programare").css('display','none');
+	$("#arata_fisa_pacient").css('display','none');
+	$("#arata_restantieri").css('display','none');
+	$("#arata_programari").css('display','none');
+	$("#arata_incasari").css('display','block');
+	$("#incasari_listate").empty();
+	
+});
+
+$('#listareincasari').click(function(){
+	$("#incasari_listate").empty();
+	$.ajax({
+      type: "POST",
+	  async: "false",
+      url: "listare_incasari.php",
+	  data: {'zi': $('#ziincasarelistare').val(),
+			 'luna': $('#lunaincasarelistare').val(),
+			 'an': $('#anincasarelistare').val()
+				},
+      success: function(response) {
+			var incasari_totale = JSON.parse(response);
+			$("#incasari_listate").append('<i><b><u>Suma Totala Incasata pe data selectata (RON):</u></b></i>  ' + incasari_totale);
+			}
+		});
+	
+});
+
 $("#afisareprogramari").click(function(){
 	$("#formular_ad_medic").css('display','none');
 	$("#formular_contract_medic").css('display','none');
@@ -324,6 +394,7 @@ $("#afisareprogramari").click(function(){
 	$("#arata_fisa_pacient").css('display','none');
 	$("#arata_restantieri").css('display','none');
 	$("#arata_programari").css('display','block');
+	$("#arata_incasari").css('display','none');
 	
 	$("#programari_listate").empty();
 	
@@ -363,6 +434,7 @@ $("#adaugamedic").click(function(){
 	$("#arata_fisa_pacient").css('display','none');
 	$("#arata_restantieri").css('display','none');
 	$("#arata_programari").css('display','none');
+	$("#arata_incasari").css('display','none');
 });
 	
 $("#adaugacontractmedic").click(function(){
@@ -377,6 +449,7 @@ $("#adaugacontractmedic").click(function(){
 	$("#arata_fisa_pacient").css('display','none');
 	$("#arata_restantieri").css('display','none');
 	$("#arata_programari").css('display','none');
+	$("#arata_incasari").css('display','none');
 	
 	$("#medic").empty();
 	$("#medic").append('<option value="0" disabled selected>Alege medicul pentru care se realizeaza contractul</option>');
@@ -410,6 +483,7 @@ $("#adaugainterventie").click(function(){
 	$("#arata_fisa_pacient").css('display','none');
 	$("#arata_restantieri").css('display','none');
 	$("#arata_programari").css('display','none');
+	$("#arata_incasari").css('display','none');
 });
 	
 $("#adaugapacient").click(function(){
@@ -424,6 +498,7 @@ $("#adaugapacient").click(function(){
 	$("#arata_fisa_pacient").css('display','none');
 	$("#arata_restantieri").css('display','none');
 	$("#arata_programari").css('display','none');
+	$("#arata_incasari").css('display','none');
 
 });
 
@@ -439,6 +514,7 @@ $("#adaugaconsultatie").click(function(){
 	$("#arata_fisa_pacient").css('display','none');
 	$("#arata_restantieri").css('display','none');
 	$("#arata_programari").css('display','none');
+	$("#arata_incasari").css('display','none');
 	
 	$("#pacientconsultat").empty();
 	$("#pacientconsultat").append('<option value="0" disabled selected>Alege pacientul pentru care se face consultatia</option>');
@@ -507,6 +583,7 @@ $("#adaugaincasare").click(function(){
 	$("#arata_fisa_pacient").css('display','none');
 	$("#arata_restantieri").css('display','none');
 	$("#arata_programari").css('display','none');
+	$("#arata_incasari").css('display','none');
 	
 	$("#consultatie_platita").empty();
 	$("#consultatie_platita").append('<option value="0" disabled selected>Alege consultatia pentru care se realizeaza plata</option>');
@@ -545,6 +622,7 @@ $("#adaugaplatamedic").click(function(){
 	$("#arata_fisa_pacient").css('display','none');
 	$("#arata_restantieri").css('display','none');
 	$("#arata_programari").css('display','none');
+	$("#arata_incasari").css('display','none');
 	
 	$("#medic_platit").empty();
 	$("#medic_platit").append('<option value="0" disabled selected>Alege medicul pentru care se realizeaza plata</option>');
@@ -576,6 +654,7 @@ $("#adaugaprogramare").click(function(){
 	$("#arata_fisa_pacient").css('display','none');
 	$("#arata_restantieri").css('display','none');
 	$("#arata_programari").css('display','none');
+	$("#arata_incasari").css('display','none');
 	
 	
 	$("#medic_programare").empty();
@@ -628,6 +707,7 @@ $('#afisarefisapacient').click(function(){
 	$("#arata_fisa_pacient").css('display','block');
 	$("#arata_restantieri").css('display','none');
 	$("#arata_programari").css('display','none');
+	$("#arata_incasari").css('display','none');
 	
 	
 	$("#pacientfisa").empty();
@@ -661,6 +741,7 @@ $('#afisarerestantieri').click(function(){
 	$("#arata_fisa_pacient").css('display','none');
 	$("#arata_restantieri").css('display','block');
 	$("#arata_programari").css('display','none');
+	$("#arata_incasari").css('display','none');
 	
 	$("#arata_restantieri").empty();
 	
